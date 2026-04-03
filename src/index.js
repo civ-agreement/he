@@ -1,10 +1,18 @@
 const sectors = [
-  { color: "#FFBC03", text: "#333333", label: "🌪️ Disaster event" },
-  { color: "#FF5A10", text: "#333333", label: "⚖️ Liability lawsuit" },
-  { color: "#FFBC03", text: "#333333", label: "🏠 Property damage" },
-  { color: "#FF5A10", text: "#333333", label: "🏥 Medical emergency" },
-  { color: "#FFBC03", text: "#333333", label: "🚗 Auto accident" },
+  { color: "#FFBC03", text: "#333333", label: "️Disaster event" },
+  { color: "#FF5A10", text: "#333333", label: "Liability lawsuit" },
+  { color: "#FFBC03", text: "#333333", label: "Property damage" },
+  { color: "#FF5A10", text: "#333333", label: "Medical emergency" },
+  { color: "#FFBC03", text: "#333333", label: "Auto accident" },
 ];
+
+const pageMap = {
+  "️ Disaster event": "disaster.html",
+  "⚖️ Liability lawsuit": "liability.html",
+  " Property damage": "property.html",
+  " Medical emergency": "medical.html",
+  " Auto accident": "auto.html",
+};
 
 const events = {
   listeners: {},
@@ -25,16 +33,16 @@ const rand = (m, M) => Math.random() * (M - m) + m;
 const tot = sectors.length;
 const spinEl = document.querySelector("#spin");
 const ctx = document.querySelector("#wheel").getContext("2d");
+
 const dia = ctx.canvas.width;
 const rad = dia / 2;
 const PI = Math.PI;
 const TAU = 2 * PI;
 const arc = TAU / sectors.length;
+const friction = 0.991;
 
-const friction = 0.991; // 0.995=soft, 0.99=mid, 0.98=hard
-let angVel = 0; // Angular velocity
-let ang = 0; // Angle in radians
-
+let angVel = 0;
+let ang = 0;
 let spinButtonClicked = false;
 
 const getIndex = () => Math.floor(tot - (ang / TAU) * tot) % tot;
@@ -43,7 +51,6 @@ function drawSector(sector, i) {
   const ang = arc * i;
   ctx.save();
 
-  // COLOR
   ctx.beginPath();
   ctx.fillStyle = sector.color;
   ctx.moveTo(rad, rad);
@@ -51,14 +58,12 @@ function drawSector(sector, i) {
   ctx.lineTo(rad, rad);
   ctx.fill();
 
-  // TEXT
   ctx.translate(rad, rad);
   ctx.rotate(ang + arc / 2);
   ctx.textAlign = "right";
   ctx.fillStyle = sector.text;
   ctx.font = "bold 30px 'Lato', sans-serif";
   ctx.fillText(sector.label, rad - 10, 10);
-  //
 
   ctx.restore();
 }
@@ -66,25 +71,25 @@ function drawSector(sector, i) {
 function rotate() {
   const sector = sectors[getIndex()];
   ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
-
   spinEl.textContent = !angVel ? "SPIN" : sector.label;
   spinEl.style.background = sector.color;
   spinEl.style.color = sector.text;
 }
 
 function frame() {
-  // Fire an event after the wheel has stopped spinning
   if (!angVel && spinButtonClicked) {
     const finalSector = sectors[getIndex()];
     events.fire("spinEnd", finalSector);
-    spinButtonClicked = false; // reset the flag
+    spinButtonClicked = false;
     return;
   }
 
-  angVel *= friction; // Decrement velocity by friction
-  if (angVel < 0.002) angVel = 0; // Bring to stop
-  ang += angVel; // Update angle
-  ang %= TAU; // Normalize angle
+  angVel *= friction;
+  if (angVel < 0.002) angVel = 0;
+
+  ang += angVel;
+  ang %= TAU;
+
   rotate();
 }
 
@@ -95,16 +100,28 @@ function engine() {
 
 function init() {
   sectors.forEach(drawSector);
-  rotate(); // Initial rotation
-  engine(); // Start engine
+  rotate();
+  engine();
+
   spinEl.addEventListener("click", () => {
-    if (!angVel) angVel = rand(0.25, 0.45);
-    spinButtonClicked = true;
+    if (!angVel) {
+      angVel = rand(0.25, 0.45);
+      spinButtonClicked = true;
+    }
   });
 }
 
 init();
 
 events.addListener("spinEnd", (sector) => {
-  console.log(`Woop! You won ${sector.label}`);
+  const nextPage = pageMap[sector.label];
+
+  if (nextPage) {
+    spinEl.textContent = "Loading...";
+    setTimeout(() => {
+      window.location.href = nextPage;
+    }, 1000);
+  } else {
+    console.error(`No page mapped for ${sector.label}`);
+  }
 });
