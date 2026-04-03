@@ -1,5 +1,5 @@
- const sectors = [
-  { color: "#FFBC03", text: "#333333", label: "️Disaster event" },
+const sectors = [
+  { color: "#FFBC03", text: "#333333", label: "Disaster event" },
   { color: "#FF5A10", text: "#333333", label: "Liability lawsuit" },
   { color: "#FFBC03", text: "#333333", label: "Property damage" },
   { color: "#FF5A10", text: "#333333", label: "Medical emergency" },
@@ -7,22 +7,22 @@
 ];
 
 const pageMap = {
-  "️ Disaster event": "/he/disaster/",
-  "⚖️ Liability lawsuit": "/he/liability/",
-  " Property damage": "/he/property/",
-  " Medical emergency": "/he/medical/",
-  " Auto accident": "/he/auto/",
+  "Disaster event": "/he/disaster/",
+  "Liability lawsuit": "/he/liability/",
+  "Property damage": "/he/property/",
+  "Medical emergency": "/he/medical/",
+  "Auto accident": "/he/auto/",
 };
 
 const events = {
   listeners: {},
-  addListener: function (eventName, fn) {
+  addListener(eventName, fn) {
     this.listeners[eventName] = this.listeners[eventName] || [];
     this.listeners[eventName].push(fn);
   },
-  fire: function (eventName, ...args) {
+  fire(eventName, ...args) {
     if (this.listeners[eventName]) {
-      for (let fn of this.listeners[eventName]) {
+      for (const fn of this.listeners[eventName]) {
         fn(...args);
       }
     }
@@ -62,7 +62,7 @@ function drawSector(sector, i) {
   ctx.rotate(ang + arc / 2);
   ctx.textAlign = "right";
   ctx.fillStyle = sector.text;
-  ctx.font = "bold 30px 'Lato', sans-serif";
+  ctx.font = "bold 24px sans-serif";
   ctx.fillText(sector.label, rad - 10, 10);
 
   ctx.restore();
@@ -115,13 +115,10 @@ init();
 
 events.addListener("spinEnd", (sector) => {
   const nextPage = pageMap[sector.label];
+  if (!nextPage) return;
 
-  if (nextPage) {
-    spinEl.textContent = "Loading...";
-    setTimeout(() => {
-      window.location.href = nextPage;
-    }, 800);
-  } else {
-    console.error(`No page mapped for ${sector.label}`);
-  }
+  spinEl.textContent = "NEXT...";
+  setTimeout(() => {
+    window.location.href = nextPage;
+  }, 800);
 });
