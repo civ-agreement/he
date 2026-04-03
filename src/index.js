@@ -7,11 +7,11 @@ const sectors = [
 ];
 
 const pageMap = {
-  "Disaster event": "/he/disaster/",
-  "Liability lawsuit": "/he/liability/",
-  "Property damage": "/he/property/",
-  "Medical emergency": "/he/medical/",
-  "Auto accident": "/he/auto/",
+  "Disaster event": "/disaster/",
+  "Liability lawsuit": "/liability/",
+  "Property damage": "/property/",
+  "Medical emergency": "/medical/",
+  "Auto accident": "/auto/",
 };
 
 const events = {
