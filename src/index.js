@@ -62,7 +62,7 @@ function drawSector(sector, i) {
   ctx.rotate(ang + arc / 2);
   ctx.textAlign = "right";
   ctx.fillStyle = sector.text;
-  ctx.font = "bold 24px sans-serif";
+  ctx.font = "bold 24px 'Lato', sans-serif";
   ctx.fillText(sector.label, rad - 10, 10);
 
   ctx.restore();
@@ -115,7 +115,11 @@ init();
 
 events.addListener("spinEnd", (sector) => {
   const nextPage = pageMap[sector.label];
-  if (!nextPage) return;
+
+  if (!nextPage) {
+    console.error(`No page mapped for: ${sector.label}`);
+    return;
+  }
 
   spinEl.textContent = "NEXT...";
   setTimeout(() => {
