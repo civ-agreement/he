@@ -1,4 +1,4 @@
-const sectors = [
+ const sectors = [
   { color: "#FFBC03", text: "#333333", label: "️Disaster event" },
   { color: "#FF5A10", text: "#333333", label: "Liability lawsuit" },
   { color: "#FFBC03", text: "#333333", label: "Property damage" },
@@ -7,11 +7,11 @@ const sectors = [
 ];
 
 const pageMap = {
-  "️ Disaster event": "disaster.html",
-  "⚖️ Liability lawsuit": "liability.html",
-  " Property damage": "property.html",
-  " Medical emergency": "medical.html",
-  " Auto accident": "auto.html",
+  "️ Disaster event": "/he/disaster/",
+  "⚖️ Liability lawsuit": "/he/liability/",
+  " Property damage": "/he/property/",
+  " Medical emergency": "/he/medical/",
+  " Auto accident": "/he/auto/",
 };
 
 const events = {
@@ -120,7 +120,7 @@ events.addListener("spinEnd", (sector) => {
     spinEl.textContent = "Loading...";
     setTimeout(() => {
       window.location.href = nextPage;
-    }, 1000);
+    }, 800);
   } else {
     console.error(`No page mapped for ${sector.label}`);
   }
