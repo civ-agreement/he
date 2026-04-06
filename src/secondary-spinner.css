@@ -104,3 +104,7 @@ h1 {
 #wheel {
   transform-origin: 50% 50%;
 }
+
+#spin {
+  transform: translate(-50%, -50%) translateY(-2px);
+}
