@@ -70,10 +70,11 @@ function drawSector(sector, i) {
 
 function rotate() {
   const sector = sectors[getIndex()];
-  ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
-  spinEl.textContent = !angVel ? "SPIN" : sector.label;
-  spinEl.style.background = sector.color;
-  spinEl.style.color = sector.text;
+  canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
+
+  spinEl.textContent = angVel ? "SPINNING..." : "SPIN";
+  spinEl.style.background = angVel ? "#ffffff" : sector.color;
+  spinEl.style.color = "#111827";
 }
 
 function frame() {
