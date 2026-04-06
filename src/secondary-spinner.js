@@ -26,13 +26,13 @@ function createSecondarySpinner({ title, sectors }) {
     }
   };
 
-  const rand = (m, M) => Math.random() * (M - m) + m;
+  const rand = (min, max) => Math.random() * (max - min) + min;
   const tot = sectors.length;
   const dia = ctx.canvas.width;
   const rad = dia / 2;
   const PI = Math.PI;
   const TAU = 2 * PI;
-  const arc = TAU / sectors.length;
+  const arc = TAU / tot;
   const friction = 0.991;
 
   let angVel = 0;
@@ -47,7 +47,7 @@ function createSecondarySpinner({ title, sectors }) {
     let currentLine = words[0] || "";
 
     for (let i = 1; i < words.length; i++) {
-      const testLine = currentLine + " " + words[i];
+      const testLine = `${currentLine} ${words[i]}`;
       const testWidth = ctx.measureText(testLine).width;
 
       if (testWidth <= maxWidth) {
@@ -63,7 +63,7 @@ function createSecondarySpinner({ title, sectors }) {
   }
 
   function drawSector(sector, i) {
-    const ang = arc * i;
+    const sectorAngle = arc * i;
     const maxWidth = rad * 0.6;
     const lineHeight = 22;
     const fontSize = 18;
@@ -74,12 +74,12 @@ function createSecondarySpinner({ title, sectors }) {
     ctx.beginPath();
     ctx.fillStyle = sector.color;
     ctx.moveTo(rad, rad);
-    ctx.arc(rad, rad, rad, ang, ang + arc);
+    ctx.arc(rad, rad, rad, sectorAngle, sectorAngle + arc);
     ctx.lineTo(rad, rad);
     ctx.fill();
 
     ctx.translate(rad, rad);
-    ctx.rotate(ang + arc / 2);
+    ctx.rotate(sectorAngle + arc / 2);
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -99,9 +99,10 @@ function createSecondarySpinner({ title, sectors }) {
   function rotate() {
     const sector = sectors[getIndex()];
     ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
-    spinEl.textContent = !angVel ? "SPIN" : sector.label;
-    spinEl.style.background = sector.color;
-    spinEl.style.color = sector.text;
+
+    spinEl.textContent = angVel ? "SPINNING..." : "SPIN";
+    spinEl.style.background = angVel ? "#ffffff" : sector.color;
+    spinEl.style.color = "#111827";
   }
 
   function frame() {
@@ -144,5 +145,7 @@ function createSecondarySpinner({ title, sectors }) {
 
   events.addListener("spinEnd", (sector) => {
     resultEl.textContent = `Result: ${sector.label}`;
+    spinEl.style.background = sector.color;
+    spinEl.style.color = "#111827";
   });
 }
