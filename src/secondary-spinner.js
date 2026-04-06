@@ -67,7 +67,7 @@ function createSecondarySpinner({ title, sectors }) {
     const maxWidth = rad * 0.6;
     const lineHeight = 22;
     const fontSize = 18;
-    const textX = rad * 0.63;
+    const textX = rad * 0.55;
 
     ctx.save();
 
