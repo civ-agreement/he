@@ -52,29 +52,26 @@ h1 {
 
 #spin {
   position: absolute;
-
-  /* Center exactly on the canvas */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  width: 120px;
-  height: 120px;
-
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-
   font-weight: 800;
-  font-size: 0.95rem;
-
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   background: white;
   color: #111827;
-
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   cursor: pointer;
-
+  user-select: none;
   z-index: 10;
+  text-align: center;
+  padding: 6px;
 }
 
 #result {
