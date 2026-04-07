@@ -62,8 +62,7 @@ h1 {
   height: 100px !important;
   min-width: 100px;
   min-height: 100px;
-
-  transform: translate(-50%, -50%) !important;
+  
   border-radius: 50%;
 
   display: grid;
