@@ -39,6 +39,7 @@ h1 {
   height: min(90vw, 560px);
   display: grid;
   place-items: center;
+  overflow: visible;
 }
 
 #wheel {
@@ -54,19 +55,21 @@ h1 {
   left: 50% !important;
   right: auto !important;
   bottom: auto !important;
-  margin: 0 !important;
   inset: auto !important;
-  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
 
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px;
+  min-height: 100px;
+
+  transform: translate(-50%, -50%) !important;
   border-radius: 50%;
 
   display: grid;
   place-items: center;
 
-  font-weight: 800;
-  font-size: 0.9rem;
+  font: 800 0.9rem/1 Arial, sans-serif;
   text-transform: uppercase;
   text-align: center;
 
@@ -76,6 +79,18 @@ h1 {
   cursor: pointer;
   user-select: none;
   z-index: 10;
+  padding: 0;
+}
+
+#spin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid #111827;
 }
 
 #result {
@@ -98,12 +113,4 @@ h1 {
 
 .back-link a:hover {
   text-decoration: underline;
-}
-
-#wheel {
-  transform-origin: 50% 50%;
-}
-
-#spin {
-  transform: translate(-50%, -50%) translateY(-2px);
 }
