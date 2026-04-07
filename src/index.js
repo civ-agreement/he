@@ -1,9 +1,9 @@
 const sectors = [
-  { color: "#a29bfe", text: "#333333", label: "Disaster event" },
-  { color: "#81ecec", text: "#333333", label: "Liability lawsuit" },
-  { color: "#fab1a0", text: "#333333", label: "Property damage" },
-  { color: "#ffeaa7", text: "#333333", label: "Medical emergency" },
-  { color: "#55efc4", text: "#333333", label: "Auto accident" }
+  { color: "#FFBC03", text: "#333333", label: "Disaster event" },
+  { color: "#FF5A10", text: "#333333", label: "Liability lawsuit" },
+  { color: "#FFBC03", text: "#333333", label: "Property damage" },
+  { color: "#FF5A10", text: "#333333", label: "Medical emergency" },
+  { color: "#FFBC03", text: "#333333", label: "Auto accident" }
 ];
 
 const pageMap = {
@@ -33,6 +33,7 @@ const events = {
 const rand = (min, max) => Math.random() * (max - min) + min;
 
 const spinEl = document.querySelector("#spin");
+const labelEl = spinEl.querySelector("span");
 const canvas = document.querySelector("#wheel");
 const ctx = canvas.getContext("2d");
 
@@ -77,7 +78,7 @@ function drawSector(sector, i) {
   const maxWidth = rad * 0.6;
   const lineHeight = 22;
   const fontSize = 18;
-  const textX = rad * 0.63;
+  const textX = rad * 0.55;
 
   ctx.save();
 
@@ -111,15 +112,13 @@ function rotate() {
   canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
 
   if (isRedirecting) {
-    spinEl.textContent = "NEXT...";
-    spinEl.style.background = "#ffffff";
-    spinEl.style.color = "#111827";
-    return;
+    labelEl.textContent = "NEXT...";
+  } else {
+    labelEl.textContent = angVel ? "SPINNING..." : "SPIN";
   }
 
-  spinEl.textContent = angVel ? "SPINNING..." : "SPIN";
-  spinEl.style.background = angVel ? "#ffffff" : sector.color;
-  spinEl.style.color = "#111827";
+  spinEl.style.background = "#8f88d8";
+  spinEl.style.color = sector.color;
 }
 
 function frame() {
