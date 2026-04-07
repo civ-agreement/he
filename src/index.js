@@ -1,9 +1,9 @@
 const sectors = [
-  { color: "#FFBC03", text: "#333333", label: "Disaster event" },
-  { color: "#FF5A10", text: "#333333", label: "Liability lawsuit" },
-  { color: "#FFBC03", text: "#333333", label: "Property damage" },
-  { color: "#FF5A10", text: "#333333", label: "Medical emergency" },
-  { color: "#FFBC03", text: "#333333", label: "Auto accident" }
+  { color: "#a29bfe", text: "#333333", label: "Disaster event" },
+  { color: "#81ecec", text: "#333333", label: "Liability lawsuit" },
+  { color: "#fab1a0", text: "#333333", label: "Property damage" },
+  { color: "#ffeaa7", text: "#333333", label: "Medical emergency" },
+  { color: "#55efc4", text: "#333333", label: "Auto accident" }
 ];
 
 const pageMap = {
