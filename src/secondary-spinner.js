@@ -97,13 +97,17 @@ function createSecondarySpinner({ title, sectors }) {
   }
 
   function rotate() {
-    const sector = sectors[getIndex()];
-    ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
+  const sector = sectors[getIndex()];
+  ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
 
-    spinEl.textContent = angVel ? "SPINNING..." : "SPIN";
-    spinEl.style.background = angVel ? "#ffffff" : sector.color;
-    spinEl.style.color = "#111827";
-  }
+  spinEl.textContent = angVel ? "SPINNING..." : "SPIN";
+
+  /* fixed inner button color */
+  spinEl.style.background = "#8f88d8";
+
+  /* only the ring changes, because box-shadow uses currentColor */
+  spinEl.style.color = sector.color;
+}
 
   function frame() {
     if (!angVel && spinButtonClicked) {
