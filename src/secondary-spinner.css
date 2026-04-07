@@ -110,3 +110,7 @@ h1 {
 .back-link a:hover {
   text-decoration: underline;
 }
+
+#spin span {
+  color: #111827;
+}
