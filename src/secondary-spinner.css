@@ -66,12 +66,12 @@ h1 {
   text-transform: uppercase;
   text-align: center;
 
-  background: #fff;
-  color: #111827;
-  border-radius: 50%;
+  background: #8f88d8;
+  color: #1f1f2e;
+
   box-shadow:
-    0 0 0 8px currentColor,
-    0 8px 15px 5px rgba(0, 0, 0, 0.25);
+    0 0 0 10px currentColor,
+    0 8px 20px rgba(0, 0, 0, 0.25);
 
   cursor: pointer;
   user-select: none;
